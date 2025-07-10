@@ -169,8 +169,8 @@ This project applies machine learning to analyze the complex stat systems of Sta
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/jojo-stand-strength-analysis.git
-cd jojo-stand-strength-analysis
+git clone https://github.com/Epicmanpreet01/jojo-stand-ml.git
+cd jojo-stand-ml
 
 # Create virtual environment (recommended)
 python -m venv venv
