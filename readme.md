@@ -26,20 +26,27 @@ This project applies machine learning to analyze the complex stat systems of Sta
 
 ## 📊 Dataset Description
 
-| File                              | Description                                         | Size          |
-| --------------------------------- | --------------------------------------------------- | ------------- |
-| `jojo-stands.csv`                 | Original dataset with letter-graded stats (A-E)     | Base dataset  |
-| `encoded-jojo-stands.csv`         | Numerically encoded stats (A=5, B=4, C=3, D=2, E=1) | Processed     |
-| `labeled-encoded-jojo-stands.csv` | Encoded stats with ML-derived cluster labels        | Final dataset |
+| File                              | Description                                                  | Encoding System                        |
+| --------------------------------- | ------------------------------------------------------------ | -------------------------------------- |
+| `jojo-stands.csv`                 | Original dataset with letter-graded stats (A-E, Infi, nulls) | Raw letter grades                      |
+| `encoded-jojo-stands.csv`         | Numerically encoded stats with null handling                 | F=0, E=2, D=4, C=6, B=8, A=10, Infi=20 |
+| `labeled-encoded-jojo-stands.csv` | Encoded stats with KMeans-derived cluster labels (0-3)       | Final ML-ready dataset                 |
 
 ### Stand Statistics
 
 - **PWR (Power)**: Physical strength and destructive capability
 - **SPD (Speed)**: Movement and attack speed
 - **RNG (Range)**: Operational distance from user
-- **STA (Stamina)**: Endurance and sustained activity
 - **PER (Perception)**: Accuracy and precision
+- **PRC (Precision)**: Fine control and accuracy
 - **DEV (Development)**: Potential for growth and evolution
+
+### Data Processing Pipeline
+
+1. **Null Handling**: Missing values filled with 'F' grade (lowest tier)
+2. **Encoding**: Letter grades converted to numerical scale (F=0 to Infi=20)
+3. **Normalization**: StandardScaler applied for clustering analysis
+4. **Balancing**: Upsampling applied to achieve equal class representation
 
 ---
 
@@ -49,25 +56,31 @@ This project applies machine learning to analyze the complex stat systems of Sta
 
 **File**: `unsupervisedClusteringModel.ipynb`
 
-- **Algorithm**: KMeans Clustering with optimal cluster selection
+- **Preprocessing**: StandardScaler normalization for feature scaling
+- **Algorithm**: KMeans Clustering (k=4) with PCA visualization
 - **Objective**: Discover natural Stand strength groupings
-- **Result**: 3 distinct strength tiers identified
-  - **Tier 1**: Elite/Overpowered Stands
-  - **Tier 2**: Balanced/Versatile Stands
-  - **Tier 3**: Specialized/Situational Stands
+- **Result**: 4 distinct strength tiers identified and mapped:
+  - **Rank 0**: Weak Stands (Low overall stats)
+  - **Rank 1**: Average Stands (Balanced capabilities)
+  - **Rank 2**: Strong Stands (High performance)
+  - **Rank 3**: God Tier Stands (Elite/Overpowered)
 
 ### Phase 2: Supervised Learning
 
 **File**: `supervisedPredictionModel.ipynb`
 
+- **Data Processing**:
+  - Null value handling with 'F' grade assignment
+  - Encoding system: F=0, E=2, D=4, C=6, B=8, A=10, Infi=20
+  - Data balancing using upsampling for equal class representation
 - **Models Tested**:
-  - Random Forest Classifier
-  - Support Vector Classifier (SVC)
-  - Gradient Boosting Classifier
-  - Logistic Regression
-  - K-Nearest Neighbors
+  - Logistic Regression (max_iter=500)
+  - Random Forest Classifier (n_estimators=110)
+  - Support Vector Classifier (linear kernel)
+  - K-Nearest Neighbors (k=2, distance weights)
+  - Gradient Boosting Classifier (100 estimators, lr=0.01)
 - **Evaluation Metrics**: Accuracy, Precision, Recall, F1-Score
-- **Cross-Validation**: 5-fold stratified cross-validation
+- **Interactive Prediction**: Manual input system for new Stand classification
 
 ---
 
@@ -102,9 +115,21 @@ This project applies machine learning to analyze the complex stat systems of Sta
 
 ![Clustering Visualization](./figures/clustering/clustering.png)
 
-### 🎭 Model Performance
+### 🎭 Model Performance Evaluation
 
-![Confusion Matrix](./figures/supervisedEvaluation/confusion-matrix.png)
+#### Individual Model Confusion Matrices
+
+| Model                         | Confusion Matrix                                                                 |
+| ----------------------------- | -------------------------------------------------------------------------------- |
+| **Logistic Regression**       | ![LR Confusion Matrix](./figures/supervisedEvaluation/confusion-matrix-lr.png)   |
+| **Random Forest**             | ![RF Confusion Matrix](./figures/supervisedEvaluation/confusion-matrix-rf.png)   |
+| **Support Vector Classifier** | ![SVC Confusion Matrix](./figures/supervisedEvaluation/confusion-matrix-svc.png) |
+| **K-Nearest Neighbors**       | ![KNN Confusion Matrix](./figures/supervisedEvaluation/confusion-matrix-knn.png) |
+| **Gradient Boosting**         | ![GBC Confusion Matrix](./figures/supervisedEvaluation/confusion-matrix-gbc.png) |
+
+#### Comprehensive Model Comparison
+
+![Model Performance Comparison](./figures/supervisedEvaluation/model-comparison-bar.png)
 
 ---
 
@@ -118,16 +143,17 @@ This project applies machine learning to analyze the complex stat systems of Sta
 
 ### 🎯 Clustering Insights
 
-- **3 Natural Tiers** discovered through unsupervised learning
-- Elite tier represents ~20% of Stands with exceptional multi-stat performance
-- Balanced tier contains ~50% of Stands with solid all-around capabilities
-- Specialized tier includes ~30% of Stands with unique niche strengths
+- **4 Natural Tiers** discovered through KMeans clustering (k=4)
+- **PCA Visualization** reveals clear cluster separation in 2D space
+- **Cluster Mapping**: Original cluster labels remapped for intuitive ranking
+- **Centroid Analysis**: Each cluster shows distinct statistical profiles
 
 ### 🤖 Model Performance
 
-- **Best Model**: Random Forest Classifier (accuracy: XX%)
-- **Key Predictors**: PWR, SPD, and DEV show highest feature importance
-- **Robust Generalization**: Cross-validation confirms model stability
+- **Comprehensive Evaluation**: 5 different algorithms tested
+- **Data Balancing**: Upsampling ensures robust training across all classes
+- **Interactive Prediction**: Real-time classification system for new Stands
+- **Comparative Analysis**: Bar chart visualization of model performance metrics
 
 ---
 
@@ -159,10 +185,18 @@ jupyter notebook
 
 ### Running the Analysis
 
-1. **Data Preprocessing**: Start with data encoding and cleaning
-2. **Unsupervised Analysis**: Run `unsupervisedClusteringModel.ipynb`
-3. **Supervised Modeling**: Execute `supervisedPredictionModel.ipynb`
-4. **Visualization**: Generate plots and analysis charts
+1. **Data Preprocessing**:
+   - Start with `unsupervisedClusteringModel.ipynb` for initial clustering
+   - This generates the labeled dataset for supervised learning
+2. **Unsupervised Analysis**:
+   - KMeans clustering with PCA visualization
+   - Generates cluster centroids and Stand rankings
+3. **Supervised Modeling**:
+   - Execute `supervisedPredictionModel.ipynb` for classification
+   - Includes data balancing and comprehensive model comparison
+4. **Interactive Prediction**:
+   - Use the built-in prediction system for new Stand classification
+   - Input stats manually and get real-time predictions
 
 ---
 
@@ -179,8 +213,24 @@ jojo-stand-strength-analysis/
 │   └── supervisedPredictionModel.ipynb
 ├── figures/
 │   ├── EDA/
+│   │   ├── class-dist-bar-before.png
+│   │   ├── class-dist-pie-before.png
+│   │   ├── class-dist-bar-after.png
+│   │   ├── class-dist-pie-after.png
+│   │   ├── stat-boxplot-before.png
+│   │   ├── stat-boxplot-after.png
+│   │   ├── stat-dist-before.png
+│   │   ├── stat-dist-after.png
+│   │   └── feature-correlation.png
 │   ├── clustering/
+│   │   └── clustering.png
 │   └── supervisedEvaluation/
+│       ├── confusion-matrix-lr.png
+│       ├── confusion-matrix-rf.png
+│       ├── confusion-matrix-svc.png
+│       ├── confusion-matrix-knn.png
+│       ├── confusion-matrix-gbc.png
+│       └── model-comparison-bar.png
 ├── requirements.txt
 ├── README.md
 └── LICENSE
@@ -203,13 +253,14 @@ jojo-stand-strength-analysis/
 
 ## 📊 Results Summary
 
-| Metric                     | Value      |
-| -------------------------- | ---------- |
-| **Clusters Identified**    | 3          |
-| **Best Model Accuracy**    | XX%        |
-| **Cross-Validation Score** | XX%        |
-| **Dataset Size**           | XXX Stands |
-| **Feature Count**          | 6 stats    |
+| Metric                  | Value                                  |
+| ----------------------- | -------------------------------------- |
+| **Clusters Identified** | 4 (Weak, Average, Strong, God)         |
+| **Encoding Range**      | 0-20 (F to Infi)                       |
+| **Models Tested**       | 5 (LR, RF, SVC, KNN, GBC)              |
+| **Data Balancing**      | Upsampling applied                     |
+| **Feature Count**       | 6 stats (PWR, SPD, RNG, PER, PRC, DEV) |
+| **PCA Components**      | 2 for visualization                    |
 
 ---
 
