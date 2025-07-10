@@ -264,11 +264,11 @@ jojo-stand-strength-analysis/
 
 ---
 
-## 📜 License
+## 📜 Licensing
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- The **code** in this repository is licensed under the [MIT License](LICENSE).
+- The **datasets** in the [`/data`](./data) folder are based on the [JoJo Stand Stats dataset](https://www.kaggle.com/datasets/ekrembayar/jojo-stands), and are distributed under the [CC BY-SA 4.0 License](https://creativecommons.org/licenses/by-sa/4.0/).
 
----
 
 ## 🙏 Acknowledgments
 
