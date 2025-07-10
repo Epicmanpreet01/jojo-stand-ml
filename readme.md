@@ -119,17 +119,17 @@ This project applies machine learning to analyze the complex stat systems of Sta
 
 #### Individual Model Confusion Matrices
 
-| Model                         | Confusion Matrix                                                                 |
-| ----------------------------- | -------------------------------------------------------------------------------- |
-| **Logistic Regression**       | ![LR Confusion Matrix](./figures/supervisedEvaluation/confusion-matrix-lr.png)   |
-| **Random Forest**             | ![RF Confusion Matrix](./figures/supervisedEvaluation/confusion-matrix-rf.png)   |
-| **Support Vector Classifier** | ![SVC Confusion Matrix](./figures/supervisedEvaluation/confusion-matrix-svc.png) |
-| **K-Nearest Neighbors**       | ![KNN Confusion Matrix](./figures/supervisedEvaluation/confusion-matrix-knn.png) |
-| **Gradient Boosting**         | ![GBC Confusion Matrix](./figures/supervisedEvaluation/confusion-matrix-gbc.png) |
+| Model                         | Confusion Matrix                                                                                          |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------- |
+| **Logistic Regression**       | ![LR Confusion Matrix](./figures/supervisedEvaluation/Logistic-Regression-Model-confusion-matrix.png)     |
+| **Random Forest**             | ![RF Confusion Matrix](./figures/supervisedEvaluation/Random-Forest-Classifier-confusion-matrix.png)      |
+| **Support Vector Classifier** | ![SVC Confusion Matrix](./figures/supervisedEvaluation/Support-Vector-Classifier-confusion-matrix.png)    |
+| **K-Nearest Neighbors**       | ![KNN Confusion Matrix](./figures/supervisedEvaluation/K-Nearest-Neighbours-confusion-matrix.png)         |
+| **Gradient Boosting**         | ![GBC Confusion Matrix](./figures/supervisedEvaluation/Gradient-Boosting-Classifier-confusion-matrix.png) |
 
 #### Comprehensive Model Comparison
 
-![Model Performance Comparison](./figures/supervisedEvaluation/model-comparison-bar.png)
+![Model Performance Comparison](./figures/supervisedEvaluation/model-comparison.png)
 
 ---
 
