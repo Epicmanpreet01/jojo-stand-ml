@@ -10,7 +10,7 @@
 
 ---
 
-## 🎯 Project Overview
+##  Project Overview
 
 This project applies machine learning to analyze the complex stat systems of Stands from JoJo's Bizarre Adventure. Stands are supernatural manifestations with stats typically graded A-E across multiple dimensions. Our analysis reveals hidden strength tiers and builds predictive models for Stand classification.
 
@@ -24,7 +24,7 @@ This project applies machine learning to analyze the complex stat systems of Sta
 
 ---
 
-## 📊 Dataset Description
+##  Dataset Description
 
 | File                              | Description                                                  | Encoding System                        |
 | --------------------------------- | ------------------------------------------------------------ | -------------------------------------- |
@@ -50,7 +50,7 @@ This project applies machine learning to analyze the complex stat systems of Sta
 
 ---
 
-## 🔬 Methodology
+##  Methodology
 
 ### Phase 1: Unsupervised Learning
 
@@ -86,7 +86,7 @@ This project applies machine learning to analyze the complex stat systems of Sta
 
 ## 📈 Visualizations & Analysis
 
-### 📊 Exploratory Data Analysis (EDA)
+###  Exploratory Data Analysis (EDA)
 
 <details>
 <summary>Click to expand visualization details</summary>
@@ -107,15 +107,15 @@ This project applies machine learning to analyze the complex stat systems of Sta
 
 </details>
 
-### 🔗 Feature Correlation Matrix
+###  Feature Correlation Matrix
 
 ![Feature Correlation](./figures/EDA/feature-correlation.png)
 
-### 🎯 Clustering Results
+###  Clustering Results
 
 ![Clustering Visualization](./figures/clustering/clustering.png)
 
-### 🎭 Model Performance Evaluation
+###  Model Performance Evaluation
 
 #### Individual Model Confusion Matrices
 
@@ -133,22 +133,22 @@ This project applies machine learning to analyze the complex stat systems of Sta
 
 ---
 
-## 🏆 Key Insights & Findings
+##  Key Insights & Findings
 
-### 📈 Statistical Discoveries
+###  Statistical Discoveries
 
 - **PER (Perception)** emerges as the most consistent high-value stat across Stands
 - **PWR** and **SPD** show strong correlation with overall Stand strength
 - **RNG** demonstrates high variability, indicating diverse tactical applications
 
-### 🎯 Clustering Insights
+###  Clustering Insights
 
 - **4 Natural Tiers** discovered through KMeans clustering (k=4)
 - **PCA Visualization** reveals clear cluster separation in 2D space
 - **Cluster Mapping**: Original cluster labels remapped for intuitive ranking
 - **Centroid Analysis**: Each cluster shows distinct statistical profiles
 
-### 🤖 Model Performance
+###  Model Performance
 
 - **Comprehensive Evaluation**: 5 different algorithms tested
 - **Data Balancing**: Upsampling ensures robust training across all classes
@@ -157,7 +157,7 @@ This project applies machine learning to analyze the complex stat systems of Sta
 
 ---
 
-## 🚀 Quick Start Guide
+##  Quick Start Guide
 
 ### Prerequisites
 
@@ -238,7 +238,7 @@ jojo-stand-strength-analysis/
 
 ---
 
-## 🛠️ Technical Stack
+##  Technical Stack
 
 | Component           | Technology          |
 | ------------------- | ------------------- |
@@ -251,7 +251,7 @@ jojo-stand-strength-analysis/
 
 ---
 
-## 📊 Results Summary
+##  Results Summary
 
 | Metric                  | Value                                  |
 | ----------------------- | -------------------------------------- |
@@ -264,13 +264,13 @@ jojo-stand-strength-analysis/
 
 ---
 
-## 📜 Licensing
+##  Licensing
 
 - The **code** in this repository is licensed under the [MIT License](LICENSE).
 - The **datasets** in the [`/data`](./data) folder are based on the [JoJo Stand Stats dataset](https://www.kaggle.com/datasets/dsfelix/jojo-stands-stats), and are distributed under the [CC BY-SA 4.0 License](https://creativecommons.org/licenses/by-sa/4.0/).
 
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - **Hirohiko Araki** - Creator of JoJo's Bizarre Adventure
 - **Scikit-Learn Community** - For excellent ML tools
