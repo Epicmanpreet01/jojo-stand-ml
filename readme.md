@@ -1,283 +1,310 @@
-# 🌟 JoJo's Bizarre Adventure Stand Strength Analysis & Prediction
+# JoJo Stand Strength Analysis and Prediction
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python&logoColor=white)
-![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-FE7923?logo=scikit-learn&logoColor=white)
-![Jupyter](https://img.shields.io/badge/Jupyter-F37626?logo=jupyter&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green)
-![Status](https://img.shields.io/badge/Status-Complete-brightgreen)
+A machine learning project that analyzes the statistics of Stands from JoJo's Bizarre Adventure to identify patterns, discover natural strength categories, and predict Stand strength levels.
 
-> A comprehensive machine learning project analyzing **JoJo's Bizarre Adventure** Stand statistics using advanced clustering and classification techniques to predict strength categories and uncover hidden patterns in Stand abilities.
+The project combines unsupervised and supervised machine learning techniques. KMeans clustering is used to identify natural groupings within the Stand statistics, while multiple classification models are trained to predict the strength category of a Stand based on its attributes.
 
----
+## Features
 
-##  Project Overview
+* Analysis of JoJo Stand statistics
+* Data preprocessing and numerical encoding
+* Missing value handling
+* Exploratory Data Analysis
+* KMeans clustering for discovering strength categories
+* PCA visualization for cluster analysis
+* Supervised machine learning models
+* Comparison of multiple classification algorithms
+* Interactive prediction for new Stand statistics
+* Model evaluation using multiple performance metrics
 
-This project applies machine learning to analyze the complex stat systems of Stands from JoJo's Bizarre Adventure. Stands are supernatural manifestations with stats typically graded A-E across multiple dimensions. Our analysis reveals hidden strength tiers and builds predictive models for Stand classification.
+## Stand Statistics
 
-### Key Features
+The dataset contains multiple attributes used to describe each Stand:
 
-- **Data Engineering**: Converts letter grades to numerical representations for ML processing
-- **Unsupervised Learning**: Discovers natural strength clusters using KMeans clustering
-- **Supervised Learning**: Trains multiple models to predict Stand strength categories
-- **Comprehensive Visualization**: Detailed EDA with distribution plots, correlation matrices, and cluster analysis
-- **Performance Evaluation**: Robust model evaluation with confusion matrices and classification reports
+* PWR (Power)
+* SPD (Speed)
+* RNG (Range)
+* PER (Perception)
+* PRC (Precision)
+* DEV (Development)
 
----
+These statistics are originally represented using letter grades and are converted into numerical values for machine learning analysis.
 
-##  Dataset Description
+## Data Processing
 
-| File                              | Description                                                  | Encoding System                        |
-| --------------------------------- | ------------------------------------------------------------ | -------------------------------------- |
-| `jojo-stands.csv`                 | Original dataset with letter-graded stats (A-E, Infi, nulls) | Raw letter grades                      |
-| `encoded-jojo-stands.csv`         | Numerically encoded stats with null handling                 | F=0, E=2, D=4, C=6, B=8, A=10, Infi=20 |
-| `labeled-encoded-jojo-stands.csv` | Encoded stats with KMeans-derived cluster labels (0-3)       | Final ML-ready dataset                 |
+The project follows a data preprocessing pipeline before training the machine learning models.
 
-### Stand Statistics
+### Grade Encoding
 
-- **PWR (Power)**: Physical strength and destructive capability
-- **SPD (Speed)**: Movement and attack speed
-- **RNG (Range)**: Operational distance from user
-- **PER (Perception)**: Accuracy and precision
-- **PRC (Precision)**: Fine control and accuracy
-- **DEV (Development)**: Potential for growth and evolution
+The Stand statistics are converted from letter grades into numerical values:
 
-### Data Processing Pipeline
+| Grade | Value |
+| ----- | ----: |
+| F     |     0 |
+| E     |     2 |
+| D     |     4 |
+| C     |     6 |
+| B     |     8 |
+| A     |    10 |
+| Infi  |    20 |
 
-1. **Null Handling**: Missing values filled with 'F' grade (lowest tier)
-2. **Encoding**: Letter grades converted to numerical scale (F=0 to Infi=20)
-3. **Normalization**: StandardScaler applied for clustering analysis
-4. **Balancing**: Upsampling applied to achieve equal class representation
+### Preprocessing Steps
 
----
+The dataset processing includes:
 
-##  Methodology
+1. Handling missing values.
+2. Converting letter grades into numerical values.
+3. Normalizing features using StandardScaler.
+4. Balancing the dataset using upsampling for supervised learning.
 
-### Phase 1: Unsupervised Learning
+## Machine Learning Approach
 
-**File**: `unsupervisedClusteringModel.ipynb`
+### Unsupervised Learning
 
-- **Preprocessing**: StandardScaler normalization for feature scaling
-- **Algorithm**: KMeans Clustering (k=4) with PCA visualization
-- **Objective**: Discover natural Stand strength groupings
-- **Result**: 4 distinct strength tiers identified and mapped:
-  - **Rank 0**: Weak Stands (Low overall stats)
-  - **Rank 1**: Average Stands (Balanced capabilities)
-  - **Rank 2**: Strong Stands (High performance)
-  - **Rank 3**: God Tier Stands (Elite/Overpowered)
+The project uses KMeans clustering to identify natural strength groupings among Stands.
 
-### Phase 2: Supervised Learning
+The clustering model divides the dataset into four groups:
 
-**File**: `supervisedPredictionModel.ipynb`
+* Rank 0: Weak Stands
+* Rank 1: Average Stands
+* Rank 2: Strong Stands
+* Rank 3: God Tier Stands
 
-- **Data Processing**:
-  - Null value handling with 'F' grade assignment
-  - Encoding system: F=0, E=2, D=4, C=6, B=8, A=10, Infi=20
-  - Data balancing using upsampling for equal class representation
-- **Models Tested**:
-  - Logistic Regression (max_iter=500)
-  - Random Forest Classifier (n_estimators=110)
-  - Support Vector Classifier (linear kernel)
-  - K-Nearest Neighbors (k=2, distance weights)
-  - Gradient Boosting Classifier (100 estimators, lr=0.01)
-- **Evaluation Metrics**: Accuracy, Precision, Recall, F1-Score
-- **Interactive Prediction**: Manual input system for new Stand classification
+PCA is used to visualize the clusters in a two-dimensional space.
 
----
+### Supervised Learning
 
-## 📈 Visualizations & Analysis
+After generating strength labels through clustering, multiple classification models are trained to predict the strength category of a Stand.
 
-###  Exploratory Data Analysis (EDA)
+The following algorithms are evaluated:
 
-<details>
-<summary>Click to expand visualization details</summary>
+* Logistic Regression
+* Random Forest Classifier
+* Support Vector Classifier
+* K-Nearest Neighbors
+* Gradient Boosting Classifier
 
-#### Class Distribution Analysis
+## Model Evaluation
 
-| Before Processing                                                  | After Processing                                                  |
-| ------------------------------------------------------------------ | ----------------------------------------------------------------- |
-| ![Class Distribution Bar](./figures/EDA/class-dist-bar-before.png) | ![Class Distribution Bar](./figures/EDA/class-dist-bar-after.png) |
-| ![Class Distribution Pie](./figures/EDA/class-dist-pie-before.png) | ![Class Distribution Pie](./figures/EDA/class-dist-pie-after.png) |
+The models are evaluated using:
 
-#### Statistical Distribution Analysis
+* Accuracy
+* Precision
+* Recall
+* F1-Score
+* Confusion Matrix
+* Classification Reports
 
-| Metric            | Before                                                   | After                                                   |
-| ----------------- | -------------------------------------------------------- | ------------------------------------------------------- |
-| **Box Plots**     | ![Stat Boxplot](./figures/EDA/stat-boxplot-before.png)   | ![Stat Boxplot](./figures/EDA/stat-boxplot-after.png)   |
-| **Distributions** | ![Stat Distribution](./figures/EDA/stat-dist-before.png) | ![Stat Distribution](./figures/EDA/stat-dist-after.png) |
+The project also compares the performance of multiple machine learning algorithms to identify how effectively each model predicts Stand strength categories.
 
-</details>
+## Tech Stack
 
-###  Feature Correlation Matrix
+### Programming and Machine Learning
 
-![Feature Correlation](./figures/EDA/feature-correlation.png)
+* Python
+* Scikit-learn
+* Pandas
+* NumPy
 
-###  Clustering Results
+### Data Visualization
 
-![Clustering Visualization](./figures/clustering/clustering.png)
+* Matplotlib
+* Seaborn
 
-###  Model Performance Evaluation
+### Development Environment
 
-#### Individual Model Confusion Matrices
+* Jupyter Notebook
 
-| Model                         | Confusion Matrix                                                                                          |
-| ----------------------------- | --------------------------------------------------------------------------------------------------------- |
-| **Logistic Regression**       | ![LR Confusion Matrix](./figures/supervisedEvaluation/Logistic-Regression-Model-confusion-matrix.png)     |
-| **Random Forest**             | ![RF Confusion Matrix](./figures/supervisedEvaluation/Random-Forest-Classifier-confusion-matrix.png)      |
-| **Support Vector Classifier** | ![SVC Confusion Matrix](./figures/supervisedEvaluation/Support-Vector-Classifier-confusion-matrix.png)    |
-| **K-Nearest Neighbors**       | ![KNN Confusion Matrix](./figures/supervisedEvaluation/K-Nearest-Neighbours-confusion-matrix.png)         |
-| **Gradient Boosting**         | ![GBC Confusion Matrix](./figures/supervisedEvaluation/Gradient-Boosting-Classifier-confusion-matrix.png) |
+## Project Structure
 
-#### Comprehensive Model Comparison
-
-![Model Performance Comparison](./figures/supervisedEvaluation/model-comparison.png)
-
----
-
-##  Key Insights & Findings
-
-###  Statistical Discoveries
-
-- **PER (Perception)** emerges as the most consistent high-value stat across Stands
-- **PWR** and **SPD** show strong correlation with overall Stand strength
-- **RNG** demonstrates high variability, indicating diverse tactical applications
-
-###  Clustering Insights
-
-- **4 Natural Tiers** discovered through KMeans clustering (k=4)
-- **PCA Visualization** reveals clear cluster separation in 2D space
-- **Cluster Mapping**: Original cluster labels remapped for intuitive ranking
-- **Centroid Analysis**: Each cluster shows distinct statistical profiles
-
-###  Model Performance
-
-- **Comprehensive Evaluation**: 5 different algorithms tested
-- **Data Balancing**: Upsampling ensures robust training across all classes
-- **Interactive Prediction**: Real-time classification system for new Stands
-- **Comparative Analysis**: Bar chart visualization of model performance metrics
-
----
-
-##  Quick Start Guide
-
-### Prerequisites
-
-- Python 3.10+
-- Jupyter Notebook
-- Required packages (see `requirements.txt`)
-
-### Installation & Setup
-
-```bash
-# Clone the repository
-git clone https://github.com/Epicmanpreet01/jojo-stand-ml.git
-cd jojo-stand-ml
-
-# Create virtual environment (recommended)
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Launch Jupyter environment
-jupyter notebook
-```
-
-### Running the Analysis
-
-1. **Data Preprocessing**:
-   - Start with `unsupervisedClusteringModel.ipynb` for initial clustering
-   - This generates the labeled dataset for supervised learning
-2. **Unsupervised Analysis**:
-   - KMeans clustering with PCA visualization
-   - Generates cluster centroids and Stand rankings
-3. **Supervised Modeling**:
-   - Execute `supervisedPredictionModel.ipynb` for classification
-   - Includes data balancing and comprehensive model comparison
-4. **Interactive Prediction**:
-   - Use the built-in prediction system for new Stand classification
-   - Input stats manually and get real-time predictions
-
----
-
-## 📁 Project Structure
-
-```
-jojo-stand-strength-analysis/
+```text id="5pt0jz"
+jojo-stand-ml/
+│
 ├── data/
 │   ├── jojo-stands.csv
 │   ├── encoded-jojo-stands.csv
 │   └── labeled-encoded-jojo-stands.csv
+│
 ├── notebooks/
 │   ├── unsupervisedClusteringModel.ipynb
 │   └── supervisedPredictionModel.ipynb
+│
 ├── figures/
 │   ├── EDA/
-│   │   ├── class-dist-bar-before.png
-│   │   ├── class-dist-pie-before.png
-│   │   ├── class-dist-bar-after.png
-│   │   ├── class-dist-pie-after.png
-│   │   ├── stat-boxplot-before.png
-│   │   ├── stat-boxplot-after.png
-│   │   ├── stat-dist-before.png
-│   │   ├── stat-dist-after.png
-│   │   └── feature-correlation.png
 │   ├── clustering/
-│   │   └── clustering.png
 │   └── supervisedEvaluation/
-│       ├── confusion-matrix-lr.png
-│       ├── confusion-matrix-rf.png
-│       ├── confusion-matrix-svc.png
-│       ├── confusion-matrix-knn.png
-│       ├── confusion-matrix-gbc.png
-│       └── model-comparison-bar.png
+│
 ├── requirements.txt
 ├── README.md
 └── LICENSE
 ```
 
----
+## Installation
 
-##  Technical Stack
+### Clone the Repository
 
-| Component           | Technology          |
-| ------------------- | ------------------- |
-| **Language**        | Python 3.10+        |
-| **ML Framework**    | Scikit-Learn        |
-| **Data Analysis**   | Pandas, NumPy       |
-| **Visualization**   | Matplotlib, Seaborn |
-| **Environment**     | Jupyter Notebook    |
-| **Version Control** | Git                 |
+```bash id="1bmbs7"
+git clone https://github.com/Epicmanpreet01/jojo-stand-ml.git
+cd jojo-stand-ml
+```
 
----
+### Create a Virtual Environment
 
-##  Results Summary
+Creating a virtual environment is recommended.
 
-| Metric                  | Value                                  |
-| ----------------------- | -------------------------------------- |
-| **Clusters Identified** | 4 (Weak, Average, Strong, God)         |
-| **Encoding Range**      | 0-20 (F to Infi)                       |
-| **Models Tested**       | 5 (LR, RF, SVC, KNN, GBC)              |
-| **Data Balancing**      | Upsampling applied                     |
-| **Feature Count**       | 6 stats (PWR, SPD, RNG, PER, PRC, DEV) |
-| **PCA Components**      | 2 for visualization                    |
+```bash id="5g9ktb"
+python -m venv venv
+```
 
----
+Activate the environment.
 
-##  Licensing
+On Windows:
 
-- The **code** in this repository is licensed under the [MIT License](LICENSE).
-- The **datasets** in the [`/data`](./data) folder are based on the [JoJo Stand Stats dataset](https://www.kaggle.com/datasets/dsfelix/jojo-stands-stats), and are distributed under the [CC BY-SA 4.0 License](https://creativecommons.org/licenses/by-sa/4.0/).
+```bash id="k9s7o4"
+venv\Scripts\activate
+```
 
+On macOS or Linux:
 
-##  Acknowledgments
+```bash id="agrc2c"
+source venv/bin/activate
+```
 
-- **Hirohiko Araki** - Creator of JoJo's Bizarre Adventure
-- **Scikit-Learn Community** - For excellent ML tools
-- **Jupyter Project** - For interactive computing environment
+### Install Dependencies
 
----
+```bash id="s8nhqq"
+pip install -r requirements.txt
+```
 
-<div align="center">
-<b>⭐ Star this repository if you found it helpful! ⭐</b>
-</div>
+## Running the Project
+
+Start Jupyter Notebook:
+
+```bash id="u8y5um"
+jupyter notebook
+```
+
+### Step 1: Unsupervised Analysis
+
+Start with:
+
+```text id="l6syrq"
+unsupervisedClusteringModel.ipynb
+```
+
+This notebook performs:
+
+* Data preprocessing
+* Feature normalization
+* KMeans clustering
+* PCA visualization
+* Cluster analysis
+
+It also generates the labeled dataset used for supervised learning.
+
+### Step 2: Supervised Prediction
+
+Run:
+
+```text id="qojpvz"
+supervisedPredictionModel.ipynb
+```
+
+This notebook:
+
+* Loads the labeled dataset
+* Processes and balances the data
+* Trains multiple classification models
+* Evaluates model performance
+* Compares different algorithms
+* Allows prediction of strength categories for new Stand statistics
+
+## How It Works
+
+The project follows the following workflow:
+
+```text id="qtw48b"
+Raw Stand Statistics
+        │
+        ▼
+Data Cleaning and Preprocessing
+        │
+        ▼
+Letter Grade Encoding
+        │
+        ▼
+Feature Normalization
+        │
+        ▼
+KMeans Clustering
+        │
+        ▼
+Strength Category Labels
+        │
+        ▼
+Supervised Model Training
+        │
+        ▼
+Model Evaluation and Comparison
+        │
+        ▼
+Stand Strength Prediction
+```
+
+## Results
+
+The analysis identifies four primary Stand strength categories based on their statistical attributes.
+
+The project includes:
+
+* Four KMeans-derived strength clusters
+* Six primary Stand statistics
+* Five supervised machine learning models
+* PCA-based cluster visualization
+* Exploratory data analysis
+* Confusion matrices for individual models
+* Performance comparison across classification algorithms
+
+## Learning Objectives
+
+This project was developed to gain hands-on experience with:
+
+* Data preprocessing
+* Feature engineering
+* Exploratory Data Analysis
+* Unsupervised machine learning
+* KMeans clustering
+* Principal Component Analysis
+* Supervised machine learning
+* Classification algorithms
+* Dataset balancing
+* Model evaluation and comparison
+* Data visualization using Python
+
+## Future Improvements
+
+Potential improvements for the project include:
+
+* Testing additional clustering algorithms
+* Hyperparameter optimization
+* Implementing more advanced classification models
+* Building an interactive web interface
+* Creating a real-time Stand strength prediction tool
+* Adding more detailed statistical analysis
+* Exploring dimensionality reduction techniques beyond PCA
+
+## Dataset
+
+The dataset used in this project is based on JoJo Stand statistics and contains the attributes used for the machine learning analysis.
+
+The dataset and its original source should be used according to their respective licensing terms.
+
+## Disclaimer
+
+This project is created for educational and experimental purposes. JoJo's Bizarre Adventure and its associated characters and concepts belong to their respective copyright holders.
+
+## License
+
+The code in this repository is licensed under the MIT License.
+
+The dataset is subject to the licensing terms of its original source.
